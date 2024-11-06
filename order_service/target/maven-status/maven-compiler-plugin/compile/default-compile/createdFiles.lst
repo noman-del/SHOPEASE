@@ -1,0 +1,5 @@
+com\shopEase\controller\OrderController.class
+com\shopEase\model\Order.class
+com\shopEase\repository\OrderRepository.class
+com\shopEase\service\OrderService.class
+com\shopEase\OrderServiceApplication.class

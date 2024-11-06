@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db_user:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: users
+    ports:
+      - "5432:5432"
+
+  db_product:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  db_order:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: orders
+    ports:
+      - "3306:3306"
+
+  user_service:
+    build:
+      context: ./user_service
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db_user
+
+  product_service:
+    build:
+      context: ./product_service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db_product
+
+  order_service:
+    build:
+      context: ./order_service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db_order
